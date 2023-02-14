@@ -1,0 +1,140 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	// margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: 'Inter';
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+////////////////////////////////// end reset
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./inter.ttf') format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.maxWidth {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.maxWidthQA {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	scroll-margin-top: 70px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.766);
+}
+
+.wholeAppWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.navigator{
+	display: flex;
+	gap: 1em;
+	font-size: 18px;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	align-self:flex-end;
+	position: absolute;
+	right: 0;
+}
+
+.cursor{
+	cursor: pointer;
+}
+.bannercontainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px;
+	align-self: baseline;
+	position:sticky;
+	top:0;
+	z-index: 2;
+	width: -webkit-fill-available;
+	background-color: white;
+	flex-direction: column;
+}
+
+.logo {
+	font-size:32px;
+	align-items: center;
+	display: flex;
+	letter-spacing: 10px;
+}
+
+.scaling {
+ transform: scale(.1);
+}
+
+.cart1 {
+  content: url(https://img.icons8.com/material-outlined/24/null/shopping-cart.png);
+  cursor:pointer;
+}
+
+.cartmodal {
+  z-index: 1;
+  position: absolute;
+	padding: 10px;
+	top: 50px;
+  width: 50%;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
