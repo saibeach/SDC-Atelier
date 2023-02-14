@@ -1,0 +1,236 @@
+small {
+  font-size: smaller;
+  font-weight: lighter;
+}
+
+hr {
+  opacity: 30%;
+  width: 80%;
+}
+
+.related-n-outfits {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-outer {
+  width: 100%;
+  height: auto;
+  position: relative;
+
+  & h2 {
+    margin: 4em 0 1.5em 20%;
+  }
+}
+
+.card-carousel {
+  margin: 0 20%;
+  display: flex;
+  scroll-behavior: smooth;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & > * {
+    scroll-snap-align: card-start;
+  }
+}
+
+.carousel-nav {
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  z-index: 1;
+  // background-color: rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+  border-radius: 15px;
+  border: none;
+  padding: 0.5rem;
+}
+
+.left-arrow {
+  left: 18%;
+}
+
+.right-arrow {
+  right: 18%;
+}
+
+.right-arrow:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: -220px;
+  right: 20px;
+  pointer-events: none;
+  background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255, 1) 95%);
+  width: 250px;
+  height: 450px;
+}
+
+.left-arrow:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: -220px;
+  left: 20px;
+  pointer-events: none;
+  background-image: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255, 1) 95%);
+  width: 250px;
+  height: 450px;
+}
+
+.card {
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border: 1px solid #888;
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 400px;
+  max-height: 400px;
+  overflow: hidden;
+}
+
+.card + .card {
+  margin-left: 1.5em;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-body {
+  padding: 2px 5px;
+  margin: 0;
+}
+
+.card-img {
+  height: 75%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-btn {
+  position: absolute;
+  background-color: transparent;
+  border-color: transparent;
+  top: 9px;
+  right: 9px;
+}
+
+.add-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: xx-large;
+}
+
+.card p {
+  margin: 0;
+  padding-top: 5px;
+}
+
+.prod-category {
+  text-transform: uppercase;
+  font-size: x-small;
+}
+
+.prod-name {
+  font-size: large;
+}
+
+.prod-price {
+  font-size: small;
+}
+
+.card-star-row {
+  margin-top: 5px;
+  margin-left: 10px;
+  font-size: 20px;
+  display: flex;
+  flex-direction:row;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.card-star {
+  float: left;
+  display: flex;
+  font-size: 100px;
+  color: #ddd;
+  justify-content: space-around;
+}
+
+.card-star:after {
+  flex-basis: 50px;
+  flex: none;
+  float: left;
+  font-family: FontAwesome;
+  content: "\f005";
+  left: 0;
+  top: 0;
+  width: 25%;
+  overflow: hidden;
+}
+
+#mutable-card-star {
+  flex-basis: 15px;
+  float:left;
+  display: flex;
+
+}
+
+ #mutable-card-star:after {
+  font-family: FontAwesome;
+  content: "\f005";
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  color: rgb(0, 0, 0);
+}
+
+.comparison-modal {
+  padding: 0 0 5px 0;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  margin: 150px 150px;
+  display: flex;
+  right: 20%;
+  top: 0;
+  width: 500px; /* Full width */
+  height: 200px; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  color: black;
+  background-color: white;
+  border: 1px solid #888;
+}
+
+.cmp-mdl-products {
+  position: relative;
+}
+
+.cmp-mdl-contents {
+  height: 80%;
+  overflow: auto;
+}
+
+.cmp-mdl-grid {
+  display: grid;
+  grid-auto-columns: .7fr 2.5fr .7fr;
+  grid-auto-flow: column;
+}
+
+.grid-itm {
+  text-align: center;
+  padding: .5em;
+  white-space: nowrap;
+}

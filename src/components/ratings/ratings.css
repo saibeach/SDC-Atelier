@@ -1,0 +1,369 @@
+.ratings {
+  padding: 0;
+	border: 0;
+  width: 100%;
+	font-size: 100%;
+	font-family: 'Inter';
+	vertical-align: baseline;
+  color: rgb(54, 69, 79);
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../questions/inter.ttf') format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.starContainer {
+  margin-top: 5px;
+  margin-left: 10px;
+  font-size: 20px;
+  display: flex;
+  flex-direction:row;
+}
+
+.star {
+  /* display: inline-block; */
+  /* flex-basis: 100px; */
+  float: left;
+  display: flex;
+  /* position: relative; */
+  font-size: 100px;
+  color: #ddd;
+  justify-content: space-around;
+}
+
+.star:after {
+  flex-basis: 50px;
+  flex: none;
+  float: left;
+  font-family: FontAwesome;
+  content: "\f005";
+  /* position: absolute; */
+  left: 0;
+  top: 0;
+  width: 25%;
+  overflow: hidden;
+  /* color: rgb(255, 0, 0); */
+}
+
+#mutableStar {
+  flex-basis: 15px;
+  float:left;
+  display: flex;
+}
+
+ #mutableStar:after {
+  /* float:left;
+  display: flex; */
+  /* border-style:double; */
+  font-family: FontAwesome;
+  content: "\f005";
+  /* position: absolute; */
+  left: 0;
+  top: 0;
+  /* width: 25%; */
+  overflow: hidden;
+  color: rgb(0, 0, 0);
+}
+
+#reviewList {
+  border: rgb(0, 0, 0);
+  border-width:thin;
+  border-style: none;
+  overflow-y: scroll;
+  height: 300px;
+  width: 100%;
+  float: right;
+  /* color: rgb(18, 155, 25); */
+}
+.reviewSummary {
+  font-style: bold;
+  font-weight:700;
+  font-size: large;
+}
+.reviewBox {
+  display: grid;
+  flex-direction: column;
+  border: rgb(0, 0, 0);
+  border-width:thin;
+  border-style:none none double none;
+  height: 150px;
+  /* align-items: stretch; */
+}
+
+.reviewStars {
+  display: flex;
+}
+
+.reviewNameDate {
+  display: flex;
+  justify-content:end;
+}
+
+.none {
+  display:none;
+}
+.modal {
+  text-align: center;
+  margin-top: 50px;
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  /* padding-top: 100px; Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  /* background-color: rgb(255, 255, 255); Fallback color */
+  background-color: rgba(217, 216, 216, 0.931); /* Black w/ opacity */
+}
+.reviewModal {
+  text-align: center;
+  display: grid; /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  /* padding-top: 100px; Location of the box */
+  left: 400px;
+  top: 2400px;
+  width: 70%; /* Full width */
+  height: 70%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  /* background-color: rgb(255, 255, 255); Fallback color */
+  background-color: rgba(232, 232, 232, 0.867); /* Black w/ opacity */
+
+}
+.modal-content {
+  /* text-align: center; */
+  background-color: #000000;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.sliderText {
+  text-align:justify;
+  width: 240px;
+  /* height: 100%; */
+  font-size: small;
+  font-stretch: extra-expanded;
+  /* max-width:max-content;
+  border-style: double; */
+}
+
+.slider {
+  /* appearance: none; */
+  /* fill: red; */
+  stroke: none;
+  /* accent-color: red;
+  background-color: red; */
+  width: 250px; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #15cd71; /* Grey background */
+  /* outline: none; */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  shape-rendering: crispEdges;
+  /* width:max-content; */
+}
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+.sliderBox {
+  width: 300px;
+}
+
+.RnR {
+  display: flex;
+  /* background-color: rgb(0, 0, 0);
+  color: #ddd;
+  border-style: dashed;
+  margin: 50px; */
+}
+.ratingsCard {
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  text-align: left;
+  float:center;
+  width: 100px;
+}
+
+.reviewBar {
+  color: aqua;
+  accent-color: #15cd71;
+  width: 200px;
+  /* background: #016bff; */
+}
+.reviewBar:hover {
+  accent-color: #7bd6a9;
+  /* background: #016bff; */
+}
+
+.recAvg {
+  font-size: small;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.ratingsBox {
+  /* background-color: #ff0000; */
+  width: 300px;
+  /* margin-left: 200px; */
+}
+/* .slider {
+  width: 240px;
+} */
+
+.reviewList {
+  width: 800px;
+}
+
+.RnR-header {
+  height: 10px;
+}
+
+.buttons {
+  float: left;
+}
+
+.buttonEl {
+  align-content: flex-start;
+  display: flex;
+}
+
+.reviewListButtons {
+/* display:inline-table; */
+display: none;
+position: relative;
+background-color: #ffffff;
+/* border: solid; */
+border-width: 1px;
+border-color: #3f3f3f;
+color: #3f3f3f;
+padding: 10px 10px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+margin-right: 0px;
+margin-top: 0px;
+margin-bottom:30px;
+cursor: pointer;
+align-items: baseline;
+gap: 100px;
+align-items: baseline;
+}
+
+.flexDiv {
+  font-size:x-small;
+  justify-content: space-between;
+  display:flex;
+  flex-direction: row;
+  width: 250px;
+}
+
+.flexButtons {
+  justify-content: center;
+  display:flex;
+  justify-content: space-between;
+}
+
+.left {
+  font-size: smaller;
+  display: flex;
+  justify-content: left;
+  flex-basis: auto;
+}
+.middle {
+  position: absolute;
+  margin-left: 110px;
+}
+.right {
+  flex-basis: auto;
+}
+
+
+.addReviewBoy:hover {
+  background-color: #3f3f3f;
+  border: solid;
+  border-width: 1px;
+  /* border-color: #3f3f3f; */
+  color: #ffffff;
+  /* padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 30px;
+  margin-top: 15px; */
+  cursor: pointer;
+}
+.showMoreBoy:hover {
+  background-color: #3f3f3f;
+  border: solid;
+  border-width: 1px;
+  /* border-color: #3f3f3f; */
+  color: #ffffff;
+  /* padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 30px;
+  margin-top: 15px; */
+  cursor: pointer;
+}
+
+.flexboys {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.bigboy {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.imgDivs {
+  width: 100px;
+  height: 100px;
+
+}
+
+.reportReview {
+  display: flex;
+  justify-content: right;
+}
+
+.addReviewBoy {
+position: absolute;
+margin-left: 700px;
+margin-top: 9px;
+
+
+}
+.showMoreBoy {
+  position: absolute;
+margin-left: 500px  ;
+width: 100px;
+}
+
+.reviewBody {
+  font-size: smaller;
+  /* height:50px; */
+}
+
+.helpfulDiv {
+  justify-self:flex-end;
+  position: relative;
+font-size: small;
+}
+
+.balls {
+  font-size: smaller;
+}
