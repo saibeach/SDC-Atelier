@@ -7,8 +7,7 @@ function arrayMove(arr, fromIndex, toIndex) {
 }
 
 function Alist({answers}) {
-  console.log("AList model, props coming in looks like :", answers, typeof(answers));
-  // console.log(answers)
+
   let answersList = answers; // Convert annoying answers object to array.
   // console.log("answersList looks like ",answersList, "and type of answersList is :", typeof (answersList));
   answersList = answersList.sort((a, b) => b.helpfulness - a.helpfulness); // Sort by helpful.
