@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import ImageModal from './picturemodal.jsx'
 
 function Aentry({ answer }) {
+  console.log("now in aentry component, what the props looks like ", answer)
+
   const [cookies, setCookie] = useCookies(['helpfulQIDs']);
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
   const [imageModalState, setImageModalState] = useState(false);
@@ -12,9 +14,12 @@ function Aentry({ answer }) {
   const [reported, setReported] = useState(false);
   const hasVoted = cookies.helpfulQIDs?.includes(answer.id);
 
+
+
+
   const handleHelpfulClick = () => {
     if (!hasVoted) {
-      axios.put(`/helpfula/?answer_id=${answer.id}`)
+      axios.put('http://localhost:3000/answerhelpful', { answer_id: answer.id })
         .then(() => {
           setCookie('helpfulQIDs', [...cookies.helpfulQIDs, answer.id], { path: '/' });
           setHelpfulness(helpfulness + 1);

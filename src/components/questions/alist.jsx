@@ -6,8 +6,11 @@ function arrayMove(arr, fromIndex, toIndex) {
   arr.splice(toIndex, 0, element);
 }
 
-function Alist({ answers }) {
-  let answersList = Object.values(answers); // Convert annoying answers object to array.
+function Alist({answers}) {
+  console.log("AList model, props coming in looks like :", answers, typeof(answers));
+  // console.log(answers)
+  let answersList = answers; // Convert annoying answers object to array.
+  // console.log("answersList looks like ",answersList, "and type of answersList is :", typeof (answersList));
   answersList = answersList.sort((a, b) => b.helpfulness - a.helpfulness); // Sort by helpful.
   for (let i = 0; i < answersList.length; i++) {
     if (answersList[i].answerer_name === "Seller") {
