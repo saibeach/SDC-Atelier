@@ -151,6 +151,52 @@ app.put('/reportq', (req, res) => {
   })
 })
 
+// handle add answer to question
+app.post('/addanswer', (req, res) => {
+  console.log("is req passing to addanswer ?", req.body)
+  const question_id = req.body.question_id;
+  const answerer_name = req.body.nickname;
+  const body = req.body.answer;
+  const answerer_email = req.body.email;
+
+  const query = 'INSERT INTO answers (question_id, body, answerer_name, answerer_email) VALUES ($1, $2, $3, $4) RETURNING id';
+
+  const values = [question_id, body, answerer_name, answerer_email]
+
+  pool.query(query, values)
+    .then(result => {
+      const newId = result.rows[0].id;
+      console.log("add answer to this question succeed!")
+    })
+    .catch(err => {
+      console.log("add answer failed! ", err)
+    })
+
+})
+
+// handle add question to cur product
+app.post('/addquestion', (req, res) => {
+  console.log("is req passing to addquestion ?", req.body)
+  const product_id = req.body.product_id;
+  const asker_name = req.body.nickname;
+  const body = req.body.question;
+  const asker_email = req.body.email;
+
+  const query = 'INSERT INTO questions (product_id, body, asker_name, asker_email) VALUES ($1, $2, $3, $4) RETURNING id';
+
+  const values = [product_id, body, asker_name, asker_email]
+
+  pool.query(query, values)
+    .then(result => {
+
+      console.log("add question to this question succeed!")
+    })
+    .catch(err => {
+      console.log("add question failed! ", err)
+    })
+
+})
+
 
 
 app.listen(3000, () => {
