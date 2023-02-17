@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function Modal({ product_id, show, setEntryModalState, pullQuestions, product_name }) {
 
-  console.log("props coming in ?", { product_id, show, setEntryModalState, pullQuestions, product_name })
+  // console.log("props coming in ?", { product_id, show, setEntryModalState, pullQuestions, product_name })
 
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');

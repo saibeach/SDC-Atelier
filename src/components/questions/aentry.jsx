@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import ImageModal from './picturemodal.jsx'
 
 function Aentry({ answer }) {
-  console.log("now in aentry component, what the props looks like ", answer)
+  // console.log("now in aentry component, what the props looks like ", answer)
 
   const [cookies, setCookie] = useCookies(['helpfulQIDs']);
   const [helpfulness, setHelpfulness] = useState(answer.helpful);
