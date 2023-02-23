@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const path = require("path")
 const { Question, Answer, AnswerPhoto } = require('./db.js');
 
-mongoose.connect('mongodb://35.153.79.101/phoenix')
+mongoose.connect('mongodb://172.31.56.14/phoenix')
 const db = mongoose.connection
 
 app.use(express.static(path.join(__dirname, '../public')));
