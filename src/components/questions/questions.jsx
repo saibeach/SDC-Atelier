@@ -16,7 +16,7 @@ function Questions({ productID, product }) {
     axios.get(`/api/questions`, {
       params: {
         product_id: product_id,
-        count: 100
+        count: 2
       }
 
     })
