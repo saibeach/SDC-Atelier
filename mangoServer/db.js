@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://ec2-35-153-79-101.compute-1.amazonaws.com/phoenix");
+mongoose.connect("mongodb://35.153.79.101/phoenix");
 
 const questionSchema = new mongoose.Schema({
   id: Number,
