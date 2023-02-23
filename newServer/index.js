@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const path = require('path');
 
+
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
   timeout: 5000,
@@ -27,8 +28,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.get('/api/questions', (req, res) => {
 
   const {product_id, count} = req.query;
-  const query = 'SELECT * FROM questions WHERE product_id = $1 LIMIT $2';
-
+  // const query = 'SELECT * FROM questions WHERE product_id = $1 LIMIT $2';
+  const query = 'SELECT * FROM questions WHERE product_id = $1 ORDER BY helpful DESC LIMIT $2';
   pool.query(query, [product_id, count])
     .then(result => {
       res.json(result.rows);
@@ -53,24 +54,24 @@ app.get('/api/answers', (req, res) => {
     })
 } )
 
-app.get('/api/mergedanswers', (req, res) => {
-  console.log("query for the combined table ?")
-  const questionId = req.query.question_id;
-  const query = `
-    SELECT a.*, ap.url
-    FROM answers AS a
-    LEFT JOIN answers_photos AS ap ON a.id = ap.answer_id
-    WHERE a.question_id = ${questionId}
-    `;
-  pool.query(query, (error, results) => {
-    if (error) {
-      console.log(error);
-      res.status(500);
-    } else {
-      res.json(results);
-    }
-  })
-})
+// app.get('/api/mergedanswers', (req, res) => {
+//   console.log("query for the combined table ?")
+//   const questionId = req.query.question_id;
+//   const query = `
+//     SELECT a.*, ap.url
+//     FROM answers AS a
+//     LEFT JOIN answers_photos AS ap ON a.id = ap.answer_id
+//     WHERE a.question_id = ${questionId}
+//     `;
+//   pool.query(query, (error, results) => {
+//     if (error) {
+//       console.log(error);
+//       res.status(500);
+//     } else {
+//       res.json(results);
+//     }
+//   })
+// })
 
 app.get('/api/answer_photos', (req, res) => {
   // console.log("query for the answer photos ")
@@ -194,10 +195,7 @@ app.post('/addquestion', (req, res) => {
     .catch(err => {
       console.log("add question failed! ", err)
     })
-
 })
-
-
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

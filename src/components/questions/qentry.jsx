@@ -8,7 +8,7 @@ import AEntryModal from './aentrymodal.jsx'
 
 function Qentry({ question, pullQuestions, product_name, searchTerm }) {
 
-  console.log("Qentry modal now, passing in props looks like", { question, pullQuestions, product_name, searchTerm });
+  // console.log("Qentry modal now, passing in props looks like", { question, pullQuestions, product_name, searchTerm });
 
   const [cookies, setCookie, removeCookie] = useCookies(['helpfulQIDs']);
   const [helpfulness, setHelpfulness] = useState(question.helpful)
@@ -73,7 +73,7 @@ function Qentry({ question, pullQuestions, product_name, searchTerm }) {
     setReported(true);
   };
 
-  console.log("props passing into Alist looks like :", answers)
+  // console.log("props passing into Alist looks like :", answers)
   return (
     <div className="aListWrapper">
       <AEntryModal show={entryModalState} setEntryModalState={setEntryModalState} question={question} pullQuestions={pullQuestions} product_name={product_name} />

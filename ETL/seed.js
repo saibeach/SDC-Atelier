@@ -1,25 +1,24 @@
 const {Pool} = require('pg');
 const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 
 // set up databse conncetion configuration
 const pool = new Pool({
-  host: 'localhost',
+  host: '3.230.163.204',
   user: 'postgres',
-  password: '',
+  password: '123',
   database: 'phoenix',
   port: 5432,
 });
-
-
 
 const createAnPhotoTable = `CREATE TABLE IF NOT EXISTS answers_photos
     (
         id SERIAL,
         answer_id integer,
         url TEXT
-    );`;
+    );`
 
 const createQuestionsTable = `CREATE TABLE IF NOT EXISTS questions (
   id integer,
@@ -43,7 +42,7 @@ const createAnswersTable = `CREATE TABLE IF NOT EXISTS answers (
   helpful INTEGER
 );`
 
-const csvAnPhotoFilePath = '/data/answers_photos.csv';
+const csvAnPhotoFilePath =  '/data/answers_photos.csv';
 const csvAnswersFilePath = '/data/answers.csv';
 const csvQuestionFilePath = '/data/questions.csv';
 
@@ -82,7 +81,10 @@ pool.query(createQuestionsTable)
 
 // writing csv data into answers_photos table
 async function readAphotocsv(csvFile) {
-  const filePath = __dirname + csvFile;
+  // const filePath = __dirname + csvFile;
+  // "\\copy public.answers_photos (id, answer_id, url) FROM '/Users/alex.xu/Desktop/data/answers_photos.csv' DELIMITER ',' CSV HEADER QUOTE '\"' ESCAPE '''';""
+  const filePath = path.join(__dirname, csvFile);
+  console.log("this is the path in the qurey looks like : ",filePath);
   const sql = `COPY answers_photos FROM '${filePath}' DELIMITER ',' CSV HEADER`;
   const client = await pool.connect();
   try {
@@ -98,7 +100,9 @@ async function readAphotocsv(csvFile) {
 
 /*******************************************************/
 async function readAnswerscsv(csvFile) {
-  const filePath = __dirname + csvFile;
+  //const filePath = __dirname + csvFile;
+  const filePath = path.join(__dirname, csvFile);
+  // console.log(filePath);
   const sql = `COPY answers FROM '${filePath}' DELIMITER ',' CSV HEADER`;
   const client = await pool.connect();
   try {
