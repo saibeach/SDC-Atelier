@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const path = require("path")
 const { Question, Answer, AnswerPhoto } = require('./db.js');
 
-mongoose.connect('mongodb://ec2-35-153-79-101.compute-1.amazonaws.com/phoenix')
+mongoose.connect('mongodb://35.153.79.101:27017/phoenix')
 const db = mongoose.connection
 
 app.use(express.static(path.join(__dirname, '../public')));
@@ -16,6 +16,7 @@ app.get('/loaderio-1b5664f7891405365965e9c0de3f286e', (req, res) => {
 })
 
 app.get('/api/questions', (req, res) => {
+  console.log("")
   const product_id = req.query.product_id;
   const count = req.query.count;
 
