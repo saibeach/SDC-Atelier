@@ -6,7 +6,7 @@ const path = require('path');
 
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://ec2-3-230-163-204.compute-1.amazonaws.com:3000',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
@@ -14,11 +14,11 @@ const axiosInstance = axios.create({
 });
 
 const pool = new Pool({
-  host: 'localhost',
+  host: 'ec2-3-230-163-204.compute-1.amazonaws.com',
   port:5432,
   database: 'phoenix',
   user: 'postgres',
-  password: ''
+  password: '123'
 })
 
 app.use(express.json());
