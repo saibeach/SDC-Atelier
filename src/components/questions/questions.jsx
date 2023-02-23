@@ -4,29 +4,45 @@ import Qlist from './qlist.jsx'
 import './questions.scss';
 
 function Questions({ productID, product }) {
+  // console.log("questions now, what is the props passing here? ", {productID, product})
+
   const [questionList, setQuestionList] = useState([]);
   const [qCount, setQCount] = useState(0);
-  const product_id = productID;
-  const product_name = product.name;
+  const product_id = 37719;
+  const product_name = "fake";
 
   useEffect(() => {
-    axios.get(`/questions/?product_id=${product_id}&count=999`)
+    // console.log("first render?", product_id)
+    axios.get(`/api/questions`, {
+      params: {
+        product_id: product_id,
+        count: 100
+      }
+
+    })
       .then((results) => {
-        const sortedByHelpfulness = results.data.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
+        // console.log("result sending back from db looks like :", results.data)
+        const sortedByHelpfulness = results.data.sort((a, b) => b.helpful - a.helpful);
+
         setQCount(results.data.length);
         setQuestionList(sortedByHelpfulness);
+        // console.log("after first render qcount :", qCount, "questionlist :", questionList);
       });
-  }, [product_id]);
+
+
+  }, []);
 
   const pullQuestions = () => {
-    axios.get(`/questions/?product_id=${product_id}&count=999`)
+    axios.get(`/api/questions`)
       .then((results) => {
-        const sortedByHelpfulness = results.data.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
+        const sortedByHelpfulness = results.data.sort((a, b) => b.helpful - a.helpful);
+
         setQCount(results.data.length);
         setQuestionList(sortedByHelpfulness);
+
       });
   };
-
+  // console.log("what is passing into qlist, ", questionList, product_id, product_name, qCount)
   return (
     <div className="outerWrap">
       <Qlist questionList={questionList} product_id={product_id} product_name={product_name} pullQuestions={pullQuestions} setQCount={setQCount} qCount={qCount} />

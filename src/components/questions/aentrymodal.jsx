@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 function Modal({ question, show, setEntryModalState, pullQuestions, product_name }) {
+  // console.log("is the question id passed ?", question)
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [answer, setAnswer] = useState('');
@@ -52,7 +53,8 @@ function Modal({ question, show, setEntryModalState, pullQuestions, product_name
       !email || !isValidEmail(email) ? setEmailAlert(true) : setEmailAlert(false)
       !answer ? setAnswerAlert(true) : setAnswerAlert(false)
     } else {
-      axios.post(`/answer/?question_id=${question.question_id}`, {
+      axios.post(`/addanswer`, {
+        question_id:question.id,
         nickname,
         answer,
         email,

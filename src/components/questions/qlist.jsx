@@ -4,6 +4,9 @@ import Search from './search.jsx'
 import QEntryModal from './qentrymodal.jsx'
 
 function Qlist({ setQCount, qCount, product_id, questionList, setQuestionList, pullQuestions, product_name }) {
+
+  // console.log("qlist now, what is props looks like :", { setQCount, qCount, product_id, questionList, setQuestionList, pullQuestions, product_name })
+
   const [searchTerm, setSearchTerm] = useState('');
   const [loadableQs, setLoadableQs] = useState(3);
   const [entryModalState, setEntryModalState] = useState(false);
@@ -25,7 +28,7 @@ function Qlist({ setQCount, qCount, product_id, questionList, setQuestionList, p
   }, [questionList]);
 
   const filteredQuestionList = questionList.filter((question) =>
-    !searchTerm || question.question_body.toLowerCase().includes(searchTerm.toLowerCase())
+    !searchTerm || question.body.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const loadableQsArray = filteredQuestionList.slice(0, loadableQs).map((question) =>

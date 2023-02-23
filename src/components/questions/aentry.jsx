@@ -1,22 +1,46 @@
 import Moment from 'moment';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ImageModal from './picturemodal.jsx'
 
 function Aentry({ answer }) {
+  // console.log("now in aentry component, what the props looks like ", answer)
+
   const [cookies, setCookie] = useCookies(['helpfulQIDs']);
-  const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
+  const [helpfulness, setHelpfulness] = useState(answer.helpful);
   const [imageModalState, setImageModalState] = useState(false);
   const [modalImage, setModalImage] = useState('');
   const [reported, setReported] = useState(false);
   const hasVoted = cookies.helpfulQIDs?.includes(answer.id);
 
+  const [photos, setPhotos] = useState([]);
+
+  // console.log("cookies before click looks like :", cookies);
+
+  useEffect(() => {
+    axios.get('/api/answer_photos', {
+      params: {
+        answer_id: answer.id
+      }
+    })
+      .then((result) => {
+        // console.log("what is the url return looks like :", result);
+        setPhotos(result.data)
+      })
+      .catch((error) => {
+        console.log("error when fetch photos")
+      })
+  },[])
+
+  // console.log("what is the photo array looks like :", photos);
+
+
   const handleHelpfulClick = () => {
     if (!hasVoted) {
-      axios.put(`/helpfula/?answer_id=${answer.id}`)
+      axios.put('/answerhelpful', { answer_id: answer.id })
         .then(() => {
-          setCookie('helpfulQIDs', [...cookies.helpfulQIDs, answer.id], { path: '/' });
+          setCookie('helpfulQIDs');
           setHelpfulness(helpfulness + 1);
         });
     } else {
@@ -25,7 +49,11 @@ function Aentry({ answer }) {
   };
 
   const handleReportAnswer = () => {
-    axios.put(`/reporta/?answer_id=${answer.id}`);
+    axios.put(`/reporta`, {
+      params: {
+        answer_id: answer.id
+      }
+    });
     setReported(true);
   };
 
@@ -40,8 +68,8 @@ function Aentry({ answer }) {
       <b>A: </b>
       {answer.body}
       <div>
-        {answer.photos?.map((item, index) => (
-          <img src={item} key={index} className="croppedPic" onClick={handleShowImageModal} />
+        {photos?.map((item, index) => (
+          <img src={item.url} key={index} className="croppedPic" onClick={handleShowImageModal} />
         ))}
       </div>
       <p className="smallText">

@@ -1,28 +1,57 @@
 import axios from 'axios'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCookies } from "react-cookie";
 import Alist from './alist.jsx'
 
 import AEntryModal from './aentrymodal.jsx'
 
+
 function Qentry({ question, pullQuestions, product_name, searchTerm }) {
+
+  // console.log("Qentry modal now, passing in props looks like", { question, pullQuestions, product_name, searchTerm });
+
   const [cookies, setCookie, removeCookie] = useCookies(['helpfulQIDs']);
-  const [helpfulness, setHelpfulness] = useState(question.question_helpfulness)
+  const [helpfulness, setHelpfulness] = useState(question.helpful)
   const [entryModalState, setEntryModalState] = useState(false);
   const [reported, setReported] = useState(false);
+  // handle the answers props from DB
+  const [answers, setAnswers] = useState([]);
+
+
+  useEffect(() => {
+
+    axios.get(`/api/answers`, {
+      params: {
+        question_id: question.id,
+      }
+
+    })
+      .then((results) => {
+        console.log("result sending back from db looks like :", results.data)
+        setAnswers(results.data);
+      })
+      .catch((error) => {
+        console.log("db query fault!")
+      })
+
+  }, []);
+
+
   if (cookies.helpfulQIDs) {
-    var cookieChecker = cookies.helpfulQIDs.includes(question.question_id);
+    var cookieChecker = cookies.helpfulQIDs.includes(question.id);
   }
+
 
   const helpfulClick = () => {
     if (!cookieChecker) {
-      axios.put(`/helpfulq/?question_id=${question.question_id}`) //  Axios get on render. Pass id later.
+
+      axios.put(`/quesitonhelpful/`, {question_id: question.id}) //  Axios get on render. Pass id later.
         .then((results) => {
           if (!cookies.helpfulQIDs) {
-            setCookie('helpfulQIDs', [question.question_id], { path: '/' });
+            setCookie('helpfulQIDs', [question.id], { path: '/' });
             setHelpfulness(helpfulness + 1);
           } else if (!cookieChecker) {
-            setCookie('helpfulQIDs', [...cookies.helpfulQIDs, question.question_id], { path: '/' });
+            setCookie('helpfulQIDs', [...cookies.helpfulQIDs, question.id], { path: '/' });
             setHelpfulness(helpfulness + 1);
           }
         });
@@ -36,17 +65,23 @@ function Qentry({ question, pullQuestions, product_name, searchTerm }) {
   };
 
   const reportQuestion = () => {
-    axios.put(`/reportq/?question_id=${question.question_id}`)
+    axios.put(`/reportq`, {
+      params: {
+        question_id: question.id
+      }
+    })
     setReported(true);
   };
 
+  // console.log("props passing into Alist looks like :", answers)
   return (
     <div className="aListWrapper">
       <AEntryModal show={entryModalState} setEntryModalState={setEntryModalState} question={question} pullQuestions={pullQuestions} product_name={product_name} />
       <div className="oppositeInline">
         <span className="biggerBolder">
-          Q: <span dangerouslySetInnerHTML={{ __html: question.question_body.replace(searchTerm, `<mark>${searchTerm}</mark>`)}} />
+          Q: <span dangerouslySetInnerHTML={{ __html: question.body.replace(searchTerm, `<mark>${searchTerm}</mark>`)}} />
         </span>
+
         <span className="rightSideQ">
           Helpful?
           <span className="qHelpful" style={{ fontWeight: cookieChecker ? 'bold' : 'normal' }} onClick={helpfulClick} >
@@ -63,7 +98,7 @@ function Qentry({ question, pullQuestions, product_name, searchTerm }) {
           </span>
         </span>
       </div>
-      <Alist answers={question.answers}/>
+      <Alist answers={answers}/>
     </div>
   );
 }
