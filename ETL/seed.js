@@ -6,7 +6,7 @@ require('dotenv').config();
 
 // set up databse conncetion configuration
 const pool = new Pool({
-  host: '3.230.163.204',
+  host: '3.90.84.84',
   user: 'postgres',
   password: '123',
   database: 'phoenix',

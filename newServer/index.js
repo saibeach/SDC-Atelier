@@ -3,10 +3,11 @@ const {Pool} = require('pg');
 const express = require('express')
 const app = express()
 const path = require('path');
+const fs = require('fs');
 
 
 const axiosInstance = axios.create({
-  baseURL: 'http://ec2-3-230-163-204.compute-1.amazonaws.com:3000',
+  baseURL: 'http://ec2-44-213-126-173.compute-1.amazonaws.com:3000',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
@@ -14,7 +15,7 @@ const axiosInstance = axios.create({
 });
 
 const pool = new Pool({
-  host: 'ec2-3-230-163-204.compute-1.amazonaws.com',
+  host: '3.90.84.84',
   port:5432,
   database: 'phoenix',
   user: 'postgres',
@@ -23,6 +24,13 @@ const pool = new Pool({
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+
+
+
+app.get('/loaderio-515867c8f8f3456032f2f1a6f4caa7b1', (req, res) => {
+  res.send('loaderio-515867c8f8f3456032f2f1a6f4caa7b1')
+})
+
 
 
 app.get('/api/questions', (req, res) => {
