@@ -32,7 +32,7 @@ function Qlist({ setQCount, qCount, product_id, questionList, setQuestionList, p
   );
 
   const loadableQsArray = filteredQuestionList.slice(0, loadableQs).map((question) =>
-    <Qentry searchTerm={searchTerm} question={question} key={question.question_id} pullQuestions={pullQuestions} product_name={product_name} />
+    <Qentry searchTerm={searchTerm} question={question} key={question.question_id} pullQuestions={pullQuestions} product_id={product_id} />
   );
 
   const clickAddQuestion = () => {

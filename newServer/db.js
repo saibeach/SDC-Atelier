@@ -4,11 +4,11 @@ dotenv.config();
 const Promise = require("bluebird");
 
 const pool = new Pool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.POS_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
+  host: 'http://ec2-3-90-84-84.compute-1.amazonaws.com',
+  user: 'postgres',
+  password: '123',
+  database: 'phoenix',
+  port: 5432,
 });
 
 const db = Promise.promisifyAll({

@@ -8,7 +8,7 @@ function Questions({ productID, product }) {
 
   const [questionList, setQuestionList] = useState([]);
   const [qCount, setQCount] = useState(0);
-  const product_id = 37719;
+  const product_id = 37711;
   const product_name = "fake";
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function Questions({ productID, product }) {
     axios.get(`/api/questions`, {
       params: {
         product_id: product_id,
-        count: 100
+        count: 999
       }
 
     })

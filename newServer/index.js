@@ -8,7 +8,7 @@ require('dotenv').config()
 
 
 const axiosInstance = axios.create({
-  baseURL: process.env.POS_HOST,
+  baseURL: process.env.POS_IP,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
@@ -16,11 +16,11 @@ const axiosInstance = axios.create({
 });
 
 const pool = new Pool({
-  host: process.env.POS_URL,
-  port:5432,
+  host: process.env.POS_IP,
+  port: 5432,
   database: process.env.POS_DATABASE,
-  user: process.env.USER,
-  password: process.env.PASSWORD
+  user: process.env.POS_USER,
+  password: process.env.POS_PASSWORD
 })
 
 app.use(express.json());
