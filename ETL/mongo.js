@@ -19,8 +19,8 @@ const dbName = 'phoenix';
 
 // Collection Names
 const questionsCollectionName = 'questions';
-const answersCollectionName = 'answers';
-const answersPhotosCollectionName = 'answers_photos';
+// const answersCollectionName = 'answers';
+// const answersPhotosCollectionName = 'answers_photos';
 
 // Connect to the MongoDB database
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -43,10 +43,10 @@ const Question = mongoose.model(questionsCollectionName, questionSchema);
 // Read questions CSV file
 const questionsStream = fs.createReadStream('./data/questions.csv').pipe(csv());
 
-// // Define a batch size
-const batchSize = 10000;
+// Define a batch size
+const batchSize = 4000;
 
-// // Initialize a batch array for questions
+// Initialize a batch array for questions
 let questionsBatch = [];
 
 // Loop through each question and add it to the batch array
@@ -87,79 +87,79 @@ questionsStream.on('end', function() {
   }
 });
 
-const answersSchema = new mongoose.Schema({
-  id: Number,
-  question_id: Number,
-  body: String,
-  date_written: Date,
-  answerer_name: String,
-  answerer_email: String,
-  reported: Boolean,
-  helpful: Number,
-})
+// const answersSchema = new mongoose.Schema({
+//   id: Number,
+//   question_id: Number,
+//   body: String,
+//   date_written: Date,
+//   answerer_name: String,
+//   answerer_email: String,
+//   reported: Boolean,
+//   helpful: Number,
+// })
 
-const Answers = mongoose.model(answersCollectionName, answersSchema)
-const answersStream = fs.createReadStream('./data/answers.csv').pipe(csv());
+// const Answers = mongoose.model(answersCollectionName, answersSchema)
+// const answersStream = fs.createReadStream('./data/answers.csv').pipe(csv());
 
-let answersBatch = [];
-answersStream.on('data', function(answer) {
-  answersBatch.push({
-    id: Number(answer.id),
-    question_id: Number(answer.question_id),
-    body: answer.body,
-    date_written: new Date(answer.date_written),
-    answerer_name: answer.answerer_name,
-    answerer_email: answer.answerer_email,
-    reported: answer.reported === 'false',
-    helpful: Number(answer.helpful)
-  });
+// let answersBatch = [];
+// answersStream.on('data', function(answer) {
+//   answersBatch.push({
+//     id: Number(answer.id),
+//     question_id: Number(answer.question_id),
+//     body: answer.body,
+//     date_written: new Date(answer.date_written),
+//     answerer_name: answer.answerer_name,
+//     answerer_email: answer.answerer_email,
+//     reported: answer.reported === 'false',
+//     helpful: Number(answer.helpful)
+//   });
 
-  if (answersBatch.length === batchSize) {
-    Answers.insertMany(answersBatch, function(err, result) {
-      console.log(`${result.length} answers inserted`);
-    });
-    answersBatch = [];
-  }
-})
+//   if (answersBatch.length === batchSize) {
+//     Answers.insertMany(answersBatch, function(err, result) {
+//       console.log(`${result.length} answers inserted`);
+//     });
+//     answersBatch = [];
+//   }
+// })
 
-answersStream.on('end', function() {
-  if (answersBatch.length > 0) {
-    Answers.insertMany(answersBatch, function(err, result) {
-      console.log(`${result.length} answers inserted`);
-    });
-  }
-});
+// answersStream.on('end', function() {
+//   if (answersBatch.length > 0) {
+//     Answers.insertMany(answersBatch, function(err, result) {
+//       console.log(`${result.length} answers inserted`);
+//     });
+//   }
+// });
 
-const answersPhotos = new mongoose.Schema({
-  id: Number,
-  answer_id: Number,
-  url: String,
-})
+// const answersPhotos = new mongoose.Schema({
+//   id: Number,
+//   answer_id: Number,
+//   url: String,
+// })
 
-const AnswersPhoto = mongoose.model(answersPhotosCollectionName, answersPhotos)
-const answersPhototsStream = fs.createReadStream('./data/answers_photos.csv').pipe(csv());
+// const AnswersPhoto = mongoose.model(answersPhotosCollectionName, answersPhotos)
+// const answersPhototsStream = fs.createReadStream('./data/answers_photos.csv').pipe(csv());
 
-let answersPhotosBatch = [];
+// let answersPhotosBatch = [];
 
-answersPhototsStream.on('data', function(answerPhoto) {
-  answersPhotosBatch.push({
-    id: Number(answerPhoto.id),
-    answer_id: Number(answerPhoto.answer_id),
-    url: answerPhoto.url
-  });
+// answersPhototsStream.on('data', function(answerPhoto) {
+//   answersPhotosBatch.push({
+//     id: Number(answerPhoto.id),
+//     answer_id: Number(answerPhoto.answer_id),
+//     url: answerPhoto.url
+//   });
 
-  if (answersPhotosBatch.length === batchSize) {
-    AnswersPhoto.insertMany(answersPhotosBatch, function(err, result) {
-      console.log(`${result.length} answers_photos inserted`);
-    });
-    answersPhotosBatch = [];
-  }
-})
+//   if (answersPhotosBatch.length === batchSize) {
+//     AnswersPhoto.insertMany(answersPhotosBatch, function(err, result) {
+//       console.log(`${result.length} answers_photos inserted`);
+//     });
+//     answersPhotosBatch = [];
+//   }
+// })
 
-answersPhototsStream.on('end', function() {
-  if (answersPhotosBatch.length > 0) {
-    AnswersPhoto.insertMany(answersPhotosBatch, function(err, result) {
-      console.log(`${result.length} answers_photos inserted`);
-    });
-  }
-});
+// answersPhototsStream.on('end', function() {
+//   if (answersPhotosBatch.length > 0) {
+//     AnswersPhoto.insertMany(answersPhotosBatch, function(err, result) {
+//       console.log(`${result.length} answers_photos inserted`);
+//     });
+//   }
+// });

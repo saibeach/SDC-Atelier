@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://ec2-35-153-79-101.compute-1.amazonaws.com/phoenix");
+require('dotenv').config()
+
+mongoose.connect(process.env.MONGO_URL);
 
 const questionSchema = new mongoose.Schema({
   id: Number,

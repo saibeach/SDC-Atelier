@@ -4,10 +4,11 @@ const express = require('express')
 const app = express()
 const path = require('path');
 const fs = require('fs');
+require('dotenv').config()
 
 
 const axiosInstance = axios.create({
-  baseURL: 'http://ec2-44-213-126-173.compute-1.amazonaws.com:3000',
+  baseURL: process.env.POS_HOST,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
@@ -15,11 +16,11 @@ const axiosInstance = axios.create({
 });
 
 const pool = new Pool({
-  host: '3.90.84.84',
+  host: process.env.POS_URL,
   port:5432,
-  database: 'phoenix',
-  user: 'postgres',
-  password: '123'
+  database: process.env.POS_DATABASE,
+  user: process.env.USER,
+  password: process.env.PASSWORD
 })
 
 app.use(express.json());
@@ -63,25 +64,6 @@ app.get('/api/answers', (req, res) => {
     })
 } )
 
-// app.get('/api/mergedanswers', (req, res) => {
-//   console.log("query for the combined table ?")
-//   const questionId = req.query.question_id;
-//   const query = `
-//     SELECT a.*, ap.url
-//     FROM answers AS a
-//     LEFT JOIN answers_photos AS ap ON a.id = ap.answer_id
-//     WHERE a.question_id = ${questionId}
-//     `;
-//   pool.query(query, (error, results) => {
-//     if (error) {
-//       console.log(error);
-//       res.status(500);
-//     } else {
-//       res.json(results);
-//     }
-//   })
-// })
-
 app.get('/api/answer_photos', (req, res) => {
   // console.log("query for the answer photos ")
   const answer_id = req.query.answer_id;
@@ -96,8 +78,6 @@ app.get('/api/answer_photos', (req, res) => {
       res.status(500);
     })
 })
-
-
 
 // handle answer helpful vote
 app.put('/answerhelpful', (req, res) => {
