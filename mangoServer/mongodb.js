@@ -7,6 +7,7 @@ require('dotenv').config()
 
 
 mongoose.connect(process.env.MONGO_URL)
+
 const db = mongoose.connection
 
 app.use(express.static(path.join(__dirname, '../public')));
