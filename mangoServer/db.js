@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
-<<<<<<< HEAD
 require('dotenv').config()
 
 mongoose.connect(process.env.MONGO_URL);
-=======
-mongoose.connect("mongodb://localhost/phoenix");
->>>>>>> 7c084cc566dfc10f8ff59f239d33c8efba1b78b3
+
 
 const questionSchema = new mongoose.Schema({
   id: Number,
