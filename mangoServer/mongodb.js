@@ -74,7 +74,7 @@ app.get('/api/answer_photos', (req, res) => {
 app.put('/quesitonhelpful', (req, res) => {
   const question_id = req.body.question_id;
   Question.updateOne(
-    {id: question_id},
+    {question_id: question_id},
     {$inc: {helpful: 1}},
     (err) => {
       if (err) {
@@ -90,7 +90,7 @@ app.put('/answerhelpful', (req, res) => {
   const answer_id = req.body.answer_id;
 
   Answer.updateOne(
-    {id: answer_id},
+    {answer_id: answer_id},
     {$inc: {helpful: 1}},
     (err) => {
       if (err) {
@@ -106,7 +106,7 @@ app.put('/reporta', (req, res) => {
   const answer_id = req.body.answer_id;
 
   Answer.findOneAndUpdate(
-    {id: answer_id},
+    {answer_id: answer_id},
     {$set: {reported: true}},
     {new: true},
     (err) => {
@@ -124,7 +124,7 @@ app.put('/reporta', (req, res) => {
 app.put('/reportq', (req, res) => {
   const question_id = req.body.question_id;
   Question.findOneAndUpdate(
-    {id: question_id},
+    {question_id: question_id},
     {$set: {reported: true}},
     {new: true},
     (err) => {
