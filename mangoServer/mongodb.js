@@ -72,9 +72,10 @@ app.get('/api/answer_photos', (req, res) => {
 
 
 app.put('/quesitonhelpful', (req, res) => {
-  const question_id = req.body.question_id;
+  console.log("question voting? ", req.body)
+  const product_id = req.body.product_id;
   Question.updateOne(
-    {question_id: question_id},
+    {product_id: product_id},
     {$inc: {helpful: 1}},
     (err) => {
       if (err) {
