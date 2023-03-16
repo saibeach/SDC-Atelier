@@ -2,6 +2,10 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Qlist from './qlist.jsx'
 import './questions.scss';
+const redis = require("redis")
+const client = redis.createClient();
+
+
 
 function Questions({ productID, product }) {
   // console.log("questions now, what is the props passing here? ", {productID, product})
@@ -11,25 +15,32 @@ function Questions({ productID, product }) {
   const product_id = 37711;
   const product_name = "fake";
 
+  const cacheKey = `questions:${product_id}`;
+
   useEffect(() => {
-    // console.log("first render?", product_id)
-    axios.get(`/api/questions`, {
-      params: {
-        product_id: product_id,
-        count: 999
-      }
+    client.get(cacheKey, (err, cachedData) => {
+      if (cachedData !== null) {
+        const parsedData = JSON.parse(cachedData);
+        const sortedByHelpfulness = parsedData.sort((a, b) => b.helpful - a.helpful);
 
-    })
-      .then((results) => {
-        // console.log("result sending back from db looks like :", results.data)
-        const sortedByHelpfulness = results.data.sort((a, b) => b.helpful - a.helpful);
-
-        setQCount(results.data.length);
+        setQCount(parsedData.length);
         setQuestionList(sortedByHelpfulness);
-        // console.log("after first render qcount :", qCount, "questionlist :", questionList);
-      });
+      } else {
+        const url = `/api/questions?product_id=${productID}&count=999`;
 
+        axios.get(url)
+          .then(response => {
+            const data = response.data;
+            const sortedByHelpfulness = data.sort((a, b) => b.helpful - a.helpful);
 
+            // Cache the API response in Redis for 5 minutes
+            client.setex(cacheKey, 300, JSON.stringify(data));
+
+            setQCount(data.length);
+            setQuestionList(sortedByHelpfulness);
+          });
+      }
+    });
   }, []);
 
   const pullQuestions = () => {
